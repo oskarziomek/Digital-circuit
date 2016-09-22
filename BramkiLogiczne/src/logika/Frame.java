@@ -13,6 +13,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Stack;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
@@ -21,7 +24,8 @@ public class Frame extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-
+	
+    
 	public static void main(String[] args) {
 		
 		// Ustawienie systemowego wygl¹du okna aplikacji
@@ -82,5 +86,52 @@ public class Frame extends JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 	}
+	
+	public static ArrayList<boolean[]> kombinatron(int dlugosc) {
+        ArrayList<boolean[]> kombinacje = new ArrayList<>();
+        for (int i = 0; i < Math.pow(2, dlugosc); i++) {
+            String bin = Integer.toBinaryString(i);
+            while (bin.length() < dlugosc) {
+                bin = "0" + bin;
+            }
+            char[] chars = bin.toCharArray();
+            boolean[] boolArray = new boolean[dlugosc];
+            for (int j = 0; j < chars.length; j++) {
+                boolArray[j] = chars[j] != '0';
+            }
+            kombinacje.add(boolArray);
+        }
+        return kombinacje;
+    }
+
+    private static void wypiszPrawdy(Wyliczalne korzen, ArrayList<Zmienna> zmienne) {
+        ArrayList<boolean[]> kombinacje = kombinatron(zmienne.size());
+        for (boolean[] kombinacja : kombinacje) {
+            for (int i = 0; i < kombinacja.length; i++) {
+                zmienne.get(i).setWartoscLogiczna(kombinacja[i]);
+            }
+            System.out.println(Arrays.toString(kombinacja) + " " + korzen.Wylicz());
+        }
+    }
+
+    private static String infixNaPrefix(String infix) {
+        Stack stack = new Stack();
+        String prefix = "";
+        for (int i = infix.length() - 1; i >= 0; i--) {
+            char c = infix.charAt(i);
+            if (Character.isLetter(c)) {
+                prefix = ((Character) c).toString() + prefix;
+            } else if (c == '(') {
+                prefix = ((Character) stack.pop()).toString() + prefix;
+            } else if (c == ')') {
+                continue;
+            } else if (c == '-') {
+                prefix = c + prefix;
+            } else {
+                stack.push(c);
+            }
+        }
+        return prefix;
+    }
 
 }
