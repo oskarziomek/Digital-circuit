@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
@@ -14,6 +15,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,11 +25,15 @@ import java.util.Stack;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.SystemColor;
 
 public class Frame extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private String infix = "";
+	JLabel lblNewLabel = new JLabel(" ");
 	
     
 	public static void main(String[] args) {
@@ -56,17 +62,8 @@ public class Frame extends JFrame {
 			}
 		});
 		
-		// Testy z palca
+		// main
 		
-		String infix = czytajWyrazenieZPliku("wyrazenie.txt");
-		System.out.println("Dzialanie z infixem: " + infix);
-        System.out.println("Dzialanie z prefixem: " + infixNaPrefix(infix));
-        
-        ParserWyrazenia pw = new ParserWyrazenia();
-        
-        Wyliczalne a = pw.parsuj(infixNaPrefix(infix));
-        
-        wypiszPrawdy(a, new ArrayList<>(pw.zwrocZmienne().values()));
 	}
 	
 	public static String czytajWyrazenieZPliku(String sciezka) {
@@ -118,18 +115,50 @@ public class Frame extends JFrame {
 		btnWczytajPlikI.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnWczytajPlikI.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				infix = czytajWyrazenieZPliku(czytajPlik());
+				System.out.println("Dzialanie z infixem: " + infix);
+		        System.out.println("Dzialanie z prefixem: " + infixNaPrefix(infix));
+		        
+		        ParserWyrazenia pw = new ParserWyrazenia();
+		        
+		        Wyliczalne a = pw.parsuj(infixNaPrefix(infix));
+		        
+		        wypiszPrawdy(a, new ArrayList<>(pw.zwrocZmienne().values()));
+		        
+		        lblNewLabel.setText(infix);
+		        
 			}
 		});
 		panel.add(btnWczytajPlikI);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.desktop);
 		contentPane.add(panel_1, BorderLayout.CENTER);
+		lblNewLabel.setFont(new Font("Courier New", Font.BOLD, 13));
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setBackground(Color.WHITE);
+		
+		panel_1.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
+	}
+	
+	public String czytajPlik() {
+		String wynik = "";
+		File selectedFile = null;
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		int result = fileChooser.showOpenDialog(this);
+		if (result == JFileChooser.APPROVE_OPTION) {
+			selectedFile = fileChooser.getSelectedFile();
+		    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+		}
+		wynik = selectedFile.getAbsolutePath();	
+		return wynik;	
 	}
 	
 	public static ArrayList<boolean[]> kombinatron(int dlugosc) {
