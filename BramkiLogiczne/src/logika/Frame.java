@@ -51,6 +51,17 @@ public class Frame extends JFrame {
 				}
 			}
 		});
+		
+		// Testy z palca
+		String infix = "((a*(a+b))*-d)";
+		System.out.println("Dzialanie z infixem: " + infix);
+        System.out.println("Dzialanie z prefixem: " + infixNaPrefix(infix));
+        
+        ParserWyrazenia pw = new ParserWyrazenia();
+        
+        Wyliczalne a = pw.parsuj(infixNaPrefix(infix));
+        
+        wypiszPrawdy(a, new ArrayList<>(pw.zwrocZmienne().values()));
 	}
 
 	public Frame() {
