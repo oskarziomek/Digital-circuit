@@ -13,6 +13,10 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
@@ -53,7 +57,8 @@ public class Frame extends JFrame {
 		});
 		
 		// Testy z palca
-		String infix = "((a*(a+b))*-d)";
+		
+		String infix = czytajWyrazenieZPliku("wyrazenie.txt");
 		System.out.println("Dzialanie z infixem: " + infix);
         System.out.println("Dzialanie z prefixem: " + infixNaPrefix(infix));
         
@@ -62,6 +67,35 @@ public class Frame extends JFrame {
         Wyliczalne a = pw.parsuj(infixNaPrefix(infix));
         
         wypiszPrawdy(a, new ArrayList<>(pw.zwrocZmienne().values()));
+	}
+	
+	public static String czytajWyrazenieZPliku(String sciezka) {
+		FileReader fr = null;
+		String linia = "";
+
+		// Otwieranie pliku
+		try {
+			fr = new FileReader(sciezka);
+		} catch (FileNotFoundException e) {
+			System.out.println("B³¹d przy otwieraniu pliku.");
+		}
+
+		BufferedReader bf = new BufferedReader(fr);
+		
+		try {
+			linia = bf.readLine();
+	    } catch (IOException e) {
+	        System.out.println("B³¹d podczas czytania z pliku.");
+	    }
+
+		// Zamykanie pliku
+		try {
+			fr.close();
+	    } catch (IOException e) {
+	        System.out.println("B³¹d przy zamykaniu pliku.");
+	    }
+		
+		return linia;	    
 	}
 
 	public Frame() {
