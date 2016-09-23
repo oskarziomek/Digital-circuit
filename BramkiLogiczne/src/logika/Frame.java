@@ -141,14 +141,22 @@ public class Frame extends JFrame {
 		        String zmienne = sprawdzZmienne(new ArrayList<>(pw.zwrocZmienne().values()));
 		        
 		        String wynik = wypiszPrawdy(a, new ArrayList<>(pw.zwrocZmienne().values()));		        
-		        String temp = wynik.replaceAll("false", "0");
-		        String result = temp.replaceAll("true", "1");
+		        String temp = zamienFalse(wynik);
+		        String result = zamienTrue(temp);
 		        
 		        textPane.setEditable(false); 
 		        textPane.setText("Wczytano wyra¿enie: " + infix + "\n\n" + zmienne + "    Wynik:" + "\n" + result);	        
 			}
 		});		
 		panel.add(btnWczytajPlikI);		
+	}
+	
+	public String zamienFalse(String stringWithFalse) {
+		return stringWithFalse.replaceAll("false", "0");
+	}
+	
+	public String zamienTrue(String stringWithTrue) {
+		return stringWithTrue.replaceAll("true", "1");
 	}
 	
 	public String czytajPlik() {
