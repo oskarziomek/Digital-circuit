@@ -19,7 +19,7 @@ public class ParserWyrazenia {
     private static final char NAND = '#';
 
     private HashMap<Character, Zmienna> zmienne;
-    private String aktWyrazenie;
+    public String aktWyrazenie;
     
     public Wyliczalne parsuj(String wyrazenie) {
         zmienne = new HashMap<>();
@@ -27,13 +27,13 @@ public class ParserWyrazenia {
         return tworzWezel();
     }
 
-    private static boolean znakJestOperacja(char znak) {
+    public static boolean znakJestOperacja(char znak) {
         return (znak == OR || znak == AND || znak == NOT || znak == XOR || znak == NOR || znak == NAND);
     }
      
-    private Wyliczalne tworzWezel() {
+    public Wyliczalne tworzWezel() {
         char znakOperacji = aktWyrazenie.charAt(0);
-        aktWyrazenie = aktWyrazenie.substring(1);        
+        aktWyrazenie = aktWyrazenie.substring(1);  
         switch (znakOperacji) {
             case OR:
                 BramkaOr bor = new BramkaOr();
@@ -66,14 +66,15 @@ public class ParserWyrazenia {
                 return bnand;
             default:
                 return tworzZmienna(znakOperacji);
+                
         }
     }
 
-    private Wyliczalne tworzZmienna(char znakZmiennej) {
+    public Wyliczalne tworzZmienna(char znakZmiennej) {
        if(!zmienne.containsKey(znakZmiennej)) {
           Zmienna z = new Zmienna(znakZmiennej);
           zwrocZmienne().put(znakZmiennej, z);
-       }
+       }       
        return zwrocZmienne().get(znakZmiennej);
     }
 
