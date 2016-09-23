@@ -5,8 +5,9 @@
   <version>0.0.1-SNAPSHOT</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
-    <plugins>
-      <plugin>
+    <plugins>					
+    
+    <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.5.1</version>
         <configuration>
@@ -14,6 +15,33 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+    
+			<!-- Dodanie wtyczek obsługujących raporty Maven -->		
+			<plugin>
+ 				<groupId>org.apache.maven.plugins</groupId>
+ 				<artifactId>maven-surefire-report-plugin</artifactId>
+ 			</plugin>
+ 			
+ 			<plugin>
+ 				<groupId>org.apache.maven.plugins</groupId>
+ 				<artifactId>maven-pmd-plugin</artifactId> 				
+ 			</plugin>
+ 			
+ 			<plugin>
+ 				<groupId>org.apache.maven.plugins</groupId>
+ 				<artifactId>maven-javadoc-plugin</artifactId>
+ 			</plugin>
+ 			
+ 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+        	
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+			</plugin> 			
+		
     </plugins>
   </build>
 </project>

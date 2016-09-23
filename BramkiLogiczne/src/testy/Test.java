@@ -159,10 +159,24 @@ public class Test {
 	}
 	
 	@org.junit.Test
+	public void tworzenieWejscWezlaOr() {
+		ParserWyrazenia pw = new ParserWyrazenia();
+		Wyliczalne a = pw.parsuj("+ab");
+		assertNotNull(a.Wylicz());		
+	}
+	
+	@org.junit.Test
 	public void tworzenieWezlaAnd() {
 		ParserWyrazenia pw = new ParserWyrazenia();
 		Wyliczalne a = pw.parsuj("*ab");
 		assertEquals("class bramki.BramkaAnd", a.getClass().toString());			
+	}
+	
+	@org.junit.Test
+	public void tworzenieWejscWezlaAnd() {
+		ParserWyrazenia pw = new ParserWyrazenia();
+		Wyliczalne a = pw.parsuj("*ab");
+		assertNotNull(a.Wylicz());		
 	}
 	
 	@org.junit.Test
@@ -173,10 +187,24 @@ public class Test {
 	}
 	
 	@org.junit.Test
+	public void tworzenieWejsciaWezlaNot() {
+		ParserWyrazenia pw = new ParserWyrazenia();
+		Wyliczalne a = pw.parsuj("-a");
+		assertNotNull(a.Wylicz());		
+	}	
+	
+	@org.junit.Test
 	public void tworzenieWezlaXor() {
 		ParserWyrazenia pw = new ParserWyrazenia();
 		Wyliczalne a = pw.parsuj("^ab");
 		assertEquals("class bramki.BramkaXor", a.getClass().toString());			
+	}
+	
+	@org.junit.Test
+	public void tworzenieWejscWezlaXor() {
+		ParserWyrazenia pw = new ParserWyrazenia();
+		Wyliczalne a = pw.parsuj("^ab");
+		assertNotNull(a.Wylicz());		
 	}
 	
 	@org.junit.Test
@@ -187,12 +215,24 @@ public class Test {
 	}
 	
 	@org.junit.Test
+	public void tworzenieWejscWezlaNor() {
+		ParserWyrazenia pw = new ParserWyrazenia();
+		Wyliczalne a = pw.parsuj("%ab");
+		assertNotNull(a.Wylicz());		
+	}
+	
+	@org.junit.Test
 	public void tworzenieWezlaNand() {
 		ParserWyrazenia pw = new ParserWyrazenia();
 		Wyliczalne a = pw.parsuj("#ab");
 		assertEquals("class bramki.BramkaNand", a.getClass().toString());			
 	}
-		
-
+	
+	@org.junit.Test
+	public void tworzenieWejscWezlaNand() {
+		ParserWyrazenia pw = new ParserWyrazenia();
+		Wyliczalne a = pw.parsuj("#ab");
+		assertNotNull(a.Wylicz());		
+	}
 
 }
