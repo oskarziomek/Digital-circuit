@@ -181,7 +181,7 @@ public class Frame extends JFrame {
         return kombinacje;
     }
 	
-	private static String sprawdzZmienne(ArrayList<Zmienna> zmienne) {
+	public static String sprawdzZmienne(ArrayList<Zmienna> zmienne) {
     	String tmp = "[";
         for (int i = 0; i < zmienne.size(); i++) {
         	 tmp += zmienne.get(i).getSymbol();
@@ -192,7 +192,7 @@ public class Frame extends JFrame {
         return wynik;
 	}
 
-    private static String wypiszPrawdy(Wyliczalne korzen, ArrayList<Zmienna> zmienne) {
+    public static String wypiszPrawdy(Wyliczalne korzen, ArrayList<Zmienna> zmienne) {
     	String wynik = "";
         ArrayList<boolean[]> kombinacje = kombinatron(zmienne.size());
         
@@ -205,7 +205,7 @@ public class Frame extends JFrame {
         return wynik;
     }
 
-    private static String infixNaPrefix(String infix) {
+    public static String infixNaPrefix(String infix) {
         Stack stack = new Stack();
         String prefix = "";
         for (int i = infix.length() - 1; i >= 0; i--) {
