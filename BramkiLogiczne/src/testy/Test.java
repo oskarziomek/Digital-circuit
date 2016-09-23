@@ -4,15 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import org.junit.rules.ExpectedException;
-
 import bramki.Bramka;
-import bramki.BramkaAnd;
-import bramki.BramkaNand;
-import bramki.BramkaNor;
-import bramki.BramkaNot;
-import bramki.BramkaOr;
-import bramki.BramkaXor;
 import logika.Frame;
 import logika.ParserWyrazenia;
 import logika.Wyliczalne;
@@ -52,6 +44,43 @@ public class Test {
 		z = new Zmienna('a');
 		assertEquals('a', z.getSymbol());		
 	}
+	
+	@org.junit.Test
+	public void ustalenieWartosci1wejsciaBramki() {
+		Bramka br = new Bramka();
+		Zmienna z = new Zmienna('x');
+		Wyliczalne wl = z;
+		br.setWejscie1(wl);
+		assertSame(wl, br.getWejscie1());		
+	}
+	
+	@org.junit.Test
+	public void ustalenieWartosci2wejsciaBramki() {
+		Bramka br = new Bramka();
+		Zmienna z = new Zmienna('x');
+		Wyliczalne wl = z;
+		br.setWejscie2(wl);
+		assertSame(wl, br.getWejscie2());		
+	}
+	
+	@org.junit.Test
+	public void czytaniePoprawnegoPliku() {
+		Frame f = new Frame();
+		assertNotNull(f.czytajWyrazenieZPliku("wyrazenie.txt"));	
+	}
+	
+	@org.junit.Test
+	public void czytanieBlednegoPliku() {
+		Frame f = new Frame();
+		assertNull(f.czytajWyrazenieZPliku("wyrazenie_blad.txt"));	
+	}
+	
+	@org.junit.Test (expected = NullPointerException.class)
+	public void czytanieNieistniejacegoPliku() {
+		Frame f = new Frame();
+		assertNotNull(f.czytajWyrazenieZPliku("wyrazenie_brak.txt"));	
+	}
+	
 	
 	@org.junit.Test
 	public void dostosowanieFormatuStringaPrzechowujacegoZmienne () {

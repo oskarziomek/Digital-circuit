@@ -60,13 +60,11 @@ public class Frame extends JFrame {
 			}
 		});
 		
-		// main
-		
 	}
 	
 	public static String czytajWyrazenieZPliku(String sciezka) {
 		FileReader fr = null;
-		String linia = "";
+		String linia = null;
 
 		// Otwieranie pliku
 		try {
@@ -78,7 +76,10 @@ public class Frame extends JFrame {
 		BufferedReader bf = new BufferedReader(fr);
 		
 		try {
-			linia = bf.readLine();
+			String tmp = bf.readLine();
+			if (tmp.length() > 0) {
+				linia = tmp;
+			}			
 	    } catch (IOException e) {
 	        System.out.println("B³¹d podczas czytania z pliku.");
 	    }
