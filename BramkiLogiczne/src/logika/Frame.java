@@ -132,42 +132,23 @@ public class Frame extends JFrame {
 		btnWczytajPlikI.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				infix = czytajWyrazenieZPliku(czytajPlik());
-				System.out.println("Dzialanie z infixem: " + infix);
-		        System.out.println("Dzialanie z prefixem: " + infixNaPrefix(infix));
+				//System.out.println("Dzialanie z infixem: " + infix);
+		        //System.out.println("Dzialanie z prefixem: " + infixNaPrefix(infix));
 		        
-		        ParserWyrazenia pw = new ParserWyrazenia();
-		        
+		        ParserWyrazenia pw = new ParserWyrazenia();		        
 		        Wyliczalne a = pw.parsuj(infixNaPrefix(infix));
 		        
-		        int liczbaZmiennych = sprawdzLiczbeZmiennych(infixNaPrefix(infix));
 		        String zmienne = sprawdzZmienne(new ArrayList<>(pw.zwrocZmienne().values()));
-		        
-		        System.out.println(liczbaZmiennych);
 		        
 		        String wynik = wypiszPrawdy(a, new ArrayList<>(pw.zwrocZmienne().values()));		        
 		        String temp = wynik.replaceAll("false", "0");
 		        String result = temp.replaceAll("true", "1");
 		        
 		        textPane.setEditable(false); 
-		        textPane.setText("Wczytano wyra¿enie: " + infix + "\n\n" + zmienne + "    Wynik:" + "\n" + result);
-		        
-		        
+		        textPane.setText("Wczytano wyra¿enie: " + infix + "\n\n" + zmienne + "    Wynik:" + "\n" + result);	        
 			}
-		});
-		
-		panel.add(btnWczytajPlikI);
-		
-		
-	}
-	
-	public int sprawdzLiczbeZmiennych (String prefix) {
-		int liczba = 0;
-		for (int i = 0; i < prefix.length(); i++) {
-			if (Character.isLetter(prefix.charAt(i))) {
-				liczba++;
-			}
-		}
-		return liczba;
+		});		
+		panel.add(btnWczytajPlikI);		
 	}
 	
 	public String czytajPlik() {
